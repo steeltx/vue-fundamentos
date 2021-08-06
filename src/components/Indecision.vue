@@ -1,5 +1,5 @@
 <template>
-  <img src="https://via.placeholder.com/250" alt="bg" />
+  <img v-if="img" :src="img" alt="bg" />
   <div class="bg-dark"></div>
   <div class="indecision-container">
     <input type="text" placeholder="Realiza una pregunta" v-model="question" />
@@ -7,7 +7,7 @@
 
     <div>
       <h2>{{ question }}</h2>
-      <h1>Si, no</h1>
+      <h1>{{ answer }}</h1>
     </div>
   </div>
 </template>
@@ -17,11 +17,24 @@ export default {
   data() {
     return {
       question: null,
+      answer: null,
+      img : null
     };
+  },
+  methods: {
+    async getAnswer() {
+      this.answer = "Pensando ...";
+      const { answer, image } = await fetch("https://yesno.wtf/api").then((r) =>
+        r.json()
+      );
+      this.answer = answer;
+      this.img = image;
+    },
   },
   watch: {
     question(value, oldValue) {
       if (!value.includes("?")) return;
+      this.getAnswer();
     },
   },
 };
