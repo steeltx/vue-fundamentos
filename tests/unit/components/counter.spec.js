@@ -41,4 +41,28 @@ describe('Counter Component', () => {
 
     })
 
+    test('debe de incrementar y decrementar el contador', async () => {
+        
+        const wrapper = shallowMount(Counter)
+
+        // obtener la referencia del primer boton
+        const increaseBtn = wrapper.find('button')
+
+        // simular clic
+        await increaseBtn.trigger('click')
+        await increaseBtn.trigger('click')
+        await increaseBtn.trigger('click')
+
+        // decremento
+        const decreaseBtn = wrapper.findAll('button')[1]
+
+        await decreaseBtn.trigger('click')
+        await decreaseBtn.trigger('click')
+
+        const value = wrapper.find('[data-testid="counter"]').text()
+
+        expect(value).toBe('101')
+
+    })
+    
 })
