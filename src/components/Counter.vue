@@ -1,6 +1,7 @@
 <template>
   <h2>{{ customTitle }}</h2>
   <p>{{ counter }} <sup>2</sup> = {{ squareCounter }}</p>
+  <p data-testid="counter">{{ counter }}</p>
   <div class="botones">
     <button @click="increase">+1</button>
     <button @click="decrease">-1</button>
@@ -11,15 +12,15 @@
 export default {
   props: {
     title: {
-        type: String
+      type: String,
     },
     start: {
-        type : Number,
-        default : 100,
-        validator(value){
-            return value >= 0
-        }
-    }
+      type: Number,
+      default: 100,
+      validator(value) {
+        return value >= 0;
+      },
+    },
   },
   data() {
     return {
