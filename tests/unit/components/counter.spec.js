@@ -3,6 +3,11 @@ import Counter from '@/components/Counter'
 
 describe('Counter Component', () => {
 
+    let wrapper;
+    beforeEach(() => {
+        wrapper = shallowMount(Counter)
+    })
+
     // test('debe de hacer match con el snapshot', () => {
 
     //     const wrapper = shallowMount(Counter)
@@ -11,8 +16,6 @@ describe('Counter Component', () => {
     // })
 
     test('h2 debe de tener el valor por defecto "Counter"', () => {
-
-        const wrapper = shallowMount(Counter)
 
         // verificar que exista el elemento
         expect(wrapper.find('h2').exists()).toBeTruthy()
@@ -26,12 +29,9 @@ describe('Counter Component', () => {
 
     test('El valor por defecto debe de ser 100 en el p', () => {
 
-        // wrapper
-        const wrapper = shallowMount(Counter)
-
         // pTags
         // const pTags = wrapper.findAll('p')
-        
+
         // buscar por atributo
         const value = wrapper.find('[data-testid="counter"]').text()
 
@@ -42,20 +42,14 @@ describe('Counter Component', () => {
     })
 
     test('debe de incrementar y decrementar el contador', async () => {
-        
-        const wrapper = shallowMount(Counter)
 
-        // obtener la referencia del primer boton
-        const increaseBtn = wrapper.find('button')
+        const [increaseBtn, decreaseBtn] = wrapper.findAll('button')
 
-        // simular clic
+        // simular click incremento
         await increaseBtn.trigger('click')
         await increaseBtn.trigger('click')
         await increaseBtn.trigger('click')
-
         // decremento
-        const decreaseBtn = wrapper.findAll('button')[1]
-
         await decreaseBtn.trigger('click')
         await decreaseBtn.trigger('click')
 
@@ -64,5 +58,5 @@ describe('Counter Component', () => {
         expect(value).toBe('101')
 
     })
-    
+
 })
