@@ -16,10 +16,14 @@ describe('Indecision component', () => {
     })
 
     test('escribir en el input no debe disparar nada (console.log)', async () => {
-        
+
+        const getAnswerSpy = jest.spyOn(wrapper.vm,'getAnswer')
+         
         const input = wrapper.find('input')
         await input.setValue('Hola')
+        
         expect(clgSpy).toHaveBeenCalledTimes(1)
+        expect(getAnswerSpy).not.toHaveBeenCalled()
 
     })
 
