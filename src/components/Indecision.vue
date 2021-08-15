@@ -37,6 +37,7 @@ export default {
       this.isValidQuestion = false;
       console.log({value})
       if (!value.includes("?")) return;
+      console.log({value})
       this.isValidQuestion = true;
       this.getAnswer();
     },
